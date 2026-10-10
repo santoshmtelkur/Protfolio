@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: frameflow-portfolio
+    runtime: docker
+    plan: starter
+    healthCheckPath: /api/videos
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: frameflow-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: frameflow-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: frameflow-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: frameflow-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: frameflow-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+
+databases:
+  - name: frameflow-db
+    plan: basic-256mb
